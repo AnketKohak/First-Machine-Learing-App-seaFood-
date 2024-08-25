@@ -40,7 +40,17 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
         let request = VNCoreMLRequest(model: model) { request, error in
             guard let results = request.results as? [VNClassificationObservation] else{
-                fatalError("results failed")
+                fatalError("model failed to results image")
+            }
+            if let firstresult = results.first{
+                if firstresult.identifier.contains("hotdog"){
+                   self.navigationItem.title = "This is HotDog"
+
+                }else{
+                    self.navigationItem.title = "This is Not HotDog"
+
+                }
+                
             }
             print(results)
         }
